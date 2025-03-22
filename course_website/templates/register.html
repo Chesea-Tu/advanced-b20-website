@@ -1,11 +1,48 @@
-<h2>Create an Account</h2>
-<form method="POST" action="/register">
-  <input name="username" placeholder="Username" required>
-  <input name="password" type="password" placeholder="Password" required>
-  <label>User Type:</label>
-  <select name="user_type" required>
-    <option value="student">Student</option>
-    <option value="instructor">Instructor</option>
-  </select>
-  <button type="submit">Register</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register | CSCB20</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+
+<input type="checkbox" id="dark-mode-toggle">
+<label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
+
+<div class="leftnavigation">
+  <ul>
+    <li><a href="/">Home 🏠</a></li>
+    <li><a href="/login">Login 🔐</a></li>
+  </ul>
+</div>
+
+<header class="course-title">
+  <h1>Register for CSCB20</h1>
+</header>
+
+<div class="container">
+  <div class="card">
+    <h2>Create an Account</h2>
+    <form method="POST" action="/register">
+      <p><input type="text" name="username" placeholder="Username" required></p>
+      <p><input type="password" name="password" placeholder="Password" required></p>
+      <p>
+        <label>User Type:</label>
+        <select name="user_type" required>
+          <option value="student">Student</option>
+          <option value="instructor">Instructor</option>
+        </select>
+      </p>
+      <p><button type="submit">Register</button></p>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 CSCB20 | Designed by Shuqing Tu & Yiqin Gao</p>
+</footer>
+
+</body>
+</html>
+
