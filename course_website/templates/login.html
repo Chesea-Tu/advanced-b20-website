@@ -1,9 +1,46 @@
-<h2>Login</h2>
-<form method="POST" action="/login">
-  <input name="username" placeholder="Username" required>
-  <input name="password" type="password" required>
-  <button type="submit">Login</button>
-</form>
-{% if error %}
-  <p style="color:red">{{ error }}</p>
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | CSCB20</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+
+<input type="checkbox" id="dark-mode-toggle">
+<label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
+
+<div class="leftnavigation">
+  <ul>
+    <li><a href="/">Home 🏠</a></li>
+    <li><a href="/register">Register 📝</a></li>
+  </ul>
+</div>
+
+<header class="course-title">
+  <h1>Login to CSCB20</h1>
+</header>
+
+<div class="home-container">
+  <div class="card">
+    <h2 style="text-align: center;">Login</h2>
+    
+    <form method="POST" action="/login" style="display: flex; flex-direction: column; gap: 15px;">
+      <input name="username" type="text" placeholder="Username" required>
+      <input name="password" type="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+
+    {% if error %}
+      <p style="color: red; margin-top: 10px; text-align: center;">{{ error }}</p>
+    {% endif %}
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 CSCB20 Course Website | <a href="https://www.utsc.utoronto.ca/cms/computer-science">Faculty of Computer Science at UofT</a></p>
+  <p>Site design by Shuqing Tu and Yiqin Gao</p>
+</footer>
+
+</body>
+</html>

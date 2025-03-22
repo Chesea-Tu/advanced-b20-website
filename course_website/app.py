@@ -43,13 +43,29 @@ class AnnoyFeed(db.Model):
 def register():
     if request.method == 'POST':
         username = request.form['username']
-        hashed_pw = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
+        password = request.form['password']
         user_type = request.form['user_type']
+
+        # 检查是否已存在用户
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            error = "Username already exists."
+            return render_template('register.html', error=error)
+
+        hashed_pw = bcrypt.generate_password_hash(password).decode('utf-8')
         user = User(username=username, password=hashed_pw, user_type=user_type)
         db.session.add(user)
         db.session.commit()
-        return redirect('/login')
+
+        # 注册后自动登录
+        session['user_id'] = user.id
+        session['username'] = user.username
+        session['user_type'] = user.user_type
+
+        return redirect('/dashboard')
+
     return render_template('register.html')
+
 
 # 登录
 @app.route('/login', methods=['GET', 'POST'])

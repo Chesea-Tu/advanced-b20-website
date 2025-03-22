@@ -164,7 +164,7 @@ html {
   input:checked + label + .background1 + .background2 {
     background: #242424;
   }
-  input {
+  input[type="checkbox"] {
     display: none;
   }
   

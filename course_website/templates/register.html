@@ -24,10 +24,16 @@
   <h1>Register for CSCB20</h1>
 </header>
 
-<!-- 居中卡片容器 -->
+<!-- 卡片注册表单 -->
 <div class="home-container">
   <div class="card">
     <h2 style="text-align: center;">Create an Account</h2>
+
+    <!-- 错误提示 -->
+    {% if error %}
+      <p style="color:red; text-align:center;">{{ error }}</p>
+    {% endif %}
+
     <form method="POST" action="/register" style="display: flex; flex-direction: column; gap: 15px;">
       <input type="text" name="username" placeholder="Username" required>
       <input type="password" name="password" placeholder="Password" required>
@@ -43,8 +49,10 @@
   </div>
 </div>
 
+<!-- 页脚 -->
 <footer>
-  <p>© 2025 CSCB20 Course Website | <a href="https://www.utsc.utoronto.ca/cms/computer-science">Faculty of Computer Science at UofT</a></p>
+  <p>© 2025 CSCB20 Course Website | 
+     <a href="https://www.utsc.utoronto.ca/cms/computer-science">Faculty of Computer Science at UofT</a></p>
   <p>Site design by Shuqing Tu and Yiqin Gao</p>
 </footer>
 
