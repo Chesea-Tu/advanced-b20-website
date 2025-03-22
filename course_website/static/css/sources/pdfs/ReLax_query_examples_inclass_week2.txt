@@ -1,0 +1,48 @@
+
+/* ------------------Division operator Example 1-------------------------- */
+/* Database Systems The Complete Book - Exercise 2.4.1: Find the makers who make every product: pc, laptops and printer */
+
+π maker, type Product ÷ ({
+type:string
+"pc"
+"laptop"
+"printer"
+})
+
+
+/* Same Query expressed in different way */
+π maker, type Product ÷ π type Product
+
+/* ----------------------------------------------------------------------- */
+
+/* ------------------Division operator Example 2-------------------------- */
+
+/* Silberschatz - UniversityDB - students who take all physics courses */
+/* students who take all physics courses */
+
+AllPhysicsCourses = π course_id σ dept_name = 'Physics'course
+TakesCourse = π ID, course_id takes
+TakesCourse / AllPhysicsCourses
+
+
+/* ----------------Making your own Database in ReLax- Example------------- */
+
+/* Try the following example in Group Editor tab of Relax to create your own database with two relations */
+--Making your own data in ReLax
+-- this is an example
+group: company
+
+employee = {
+name:string, salary:number
+"Purva",  42000
+"Anya", 50000
+}
+
+department = {
+name:string, budget:number
+"ABC", 3000000
+"Purva", 4000000
+}
+
+
+

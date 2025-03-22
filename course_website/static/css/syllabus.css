@@ -1,0 +1,245 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;  
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+body{
+    margin: 0;
+}
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+:root {
+    --nav-height: 20vh;
+  }
+  
+.syllabus-header {
+    text-align: center;
+  background-color: aliceblue;
+  color: rgb(114, 95, 160);
+  font-family: "Georgia", serif;
+  font-size: 22px;
+  margin-top: var(--nav-height); 
+  padding: 20px;
+  border-bottom: 2px solid #003366;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#dark-mode-toggle:checked ~ .syllabus-header {
+    background-color: #4c4a4a;
+    color: #E0E0E0;
+    border-bottom: 2px solid #FFD700;
+}
+
+.syllabus-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color: aliceblue;
+    padding: 20px;
+    flex: 1;
+}
+
+
+.syllabus-info, .syllabus-download {
+    background-color: white;
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.syllabus-info ul{
+    color:cadetblue
+}
+
+
+.syllabus-info:hover, .syllabus-download:hover {
+    transform: scale(1.05);
+}
+
+#dark-mode-toggle:checked ~ .syllabus-container .syllabus-info,
+#dark-mode-toggle:checked ~ .syllabus-container .syllabus-download {
+    background-color: #2E2E2E;
+    color: #E0E0E0;
+    box-shadow: 2px 2px 10px rgba(255, 215, 0, 0.3);
+}
+
+.syllabus-link {
+    display: block;
+    margin-top: 10px;
+    padding: 12px;
+    background-color: #0055AA;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.syllabus-link:hover {
+    background-color: #004488;
+}
+
+#dark-mode-toggle:checked ~ .syllabus-container .syllabus-download .syllabus-link {
+    background-color: darkkhaki;
+    color: black;
+}
+
+footer {
+    text-align: center;
+    background-color: #003366;
+    color: white;
+    font-size: 14px;
+    width: 100%;
+    padding: 15px 0;
+    flex-shrink: 0;
+    position: relative;
+}
+
+footer a {
+    color: #FFD700;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.leftnavigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #003366;
+    font-family: "Georgia", serif;
+    padding: 15px 0;
+    height: var(--nav-height); 
+    width: 100%; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+
+.leftnavigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    max-width: 80%;
+    text-align: center;
+}
+
+.leftnavigation ul li a {
+    display: block;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.leftnavigation ul li a:hover {
+    color: #FFD700;
+    background-color: #004488;
+    border-radius: 5px;
+}
+
+.leftnavigation span, .leftnavigation a {
+    padding: 3px 15px 4px;
+}
+.leftnavigation span {
+    background: rgb(114, 95, 160);
+    color: #fff;
+}
+
+#dark-mode-toggle {
+    display: none;
+}
+
+.dark-mode-label {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #0055AA;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 2000;
+}
+
+.dark-mode-label:hover {
+    background-color: #004488;
+}
+
+#dark-mode-toggle:checked ~ * {
+    background-color: #121212;
+    color: #E0E0E0;
+}
+
+#dark-mode-toggle:checked ~ .leftnavigation {
+    background-color:#1E1E1E;
+}
+
+#dark-mode-toggle:checked ~ .dark-mode-label {
+    background: rgb(196, 194, 199);
+    color: #1b1919
+}
+
+#dark-mode-toggle:checked ~ .leftnavigation span{
+    background: rgb(196, 194, 199);
+    color: #1b1919
+}
+
+#dark-mode-toggle:checked ~ .leftnavigation ul li a:hover{
+    background-color: rgb(196, 194, 199);
+    color: #1b1919;
+    border-radius: 5px;
+}
+
+#dark-mode-toggle:checked ~ .pdf-links {
+    background-color: #4c4a4a;
+    color: #E0E0E0;
+}
+
+@media screen and (max-width: 768px) {
+    .leftnavigation ul {
+        flex-direction: column;
+    }
+    .leftnavigation ul li a {
+        font-size: 16px;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .leftnavigation ul {
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 100%;
+    }
+  }
+  

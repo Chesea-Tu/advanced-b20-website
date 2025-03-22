@@ -1,0 +1,11 @@
+<h2>Create an Account</h2>
+<form method="POST" action="/register">
+  <input name="username" placeholder="Username" required>
+  <input name="password" type="password" placeholder="Password" required>
+  <label>User Type:</label>
+  <select name="user_type" required>
+    <option value="student">Student</option>
+    <option value="instructor">Instructor</option>
+  </select>
+  <button type="submit">Register</button>
+</form>
