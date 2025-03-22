@@ -1,5 +1,49 @@
-<h1>Welcome to CSCB20 Course Website</h1>
-<img src="{{ url_for('static', filename='images/logo.png') }}" alt="UTSC Logo" width="200">
-<p>Please login or register to access course materials.</p>
-<a href="/register">Register</a> |
-<a href="/login">Login</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome | CSCB20</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+
+<!-- 暗黑模式开关 -->
+<input type="checkbox" id="dark-mode-toggle">
+<label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
+
+<!-- 顶部导航栏 -->
+<div class="leftnavigation">
+  <ul>
+    <li><a href="/">Home 🏠</a></li>
+    <li><a href="/register">Register 📝</a></li>
+    <li><a href="/login">Login 🔐</a></li>
+  </ul>
+</div>
+
+<!-- 页面标题 -->
+<header class="course-title">
+  <h1>Welcome to CSCB20 Course Website✨</h1>
+</header>
+
+<!-- 卡片容器（居中） -->
+<div class="home-container">
+  <div class="card">
+    
+    <h2 style="text-align:center;">Your Gateway to Databases and Web Development 🚀</h2>
+    <p style="text-align:center;">
+      Please <a href="/login">Login</a> or <a href="/register">Register</a> to access course materials.
+    </p>
+    <div style="text-align:center; margin-top: 20px;">
+      <a href="/register"><button style="padding: 10px 20px; margin: 10px;">Register</button></a>
+      <a href="/login"><button style="padding: 10px 20px; margin: 10px;">Login</button></a>
+    </div>
+  </div>
+</div>
+
+<footer>
+    <p>© 2025 CSCB20 Course Website | <a href="https://www.utsc.utoronto.ca/cms/computer-science">Faculty of Computer Science at UofT</a></p>
+    <p>Site design by Shuqing Tu and Yiqin Gao</p>
+</footer>
+
+</body>
+</html>
