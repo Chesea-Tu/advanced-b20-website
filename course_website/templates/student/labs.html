@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSCB20 - Introduction to Databases and Web Applications</title>
+    <link href="{{ url_for('static', filename='css/labs.css') }}" rel="stylesheet" type="text/css">
+</head>
+
+
+<body>
+
+    <!-- ✅ 背景层 -->
+    <div class="background"></div>
+
+    <!-- ✅ Dark Mode 按钮 -->
+    <input type="checkbox" id="dark-mode-toggle">
+    <label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
+
+    <!-- ✅ 顶部导航栏 -->
+    <div class="leftnavigation">
+        <ul>
+            <li><a href="dashboard.html">Home 🏠</a></li>
+            <li><a href="syllabus.html">Syllabus🚀</a></li>
+            <li><a href="calendar.html">Calendar🗓️</a></li>
+            <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
+            <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
+            <li><a href="lectures.html">Lectures👩‍🏫</a></li>
+            <li><a href="labs.html"><span>Labs👩‍💻</span></a></li>
+            <li><a href="assignments.html">Assignments✍️</a></li>
+            <li><a href="resources.html">Course Team🙋‍♀️🙋‍♀️</a></li>
+            <li><a href="anon_feedback.html">Anon Feedback😉</a></li>
+        </ul>
+    </div>
+
+    <!-- ✅ Labs Header -->
+    <header class="labs-header">
+        <h1>Lab Sessions</h1>
+        <p>Here you can find lab exercises and solutions for each week.</p>
+        <p>Notes Prepared by: Kevin Zhang</p>
+    </header>
+
+    <!-- ✅ 实验部分 -->
+    <div class="labs-container">
+        
+        <div class="lab-list">
+            <div class="lab-card">
+                <h2>Week 1: Introduction to SQL</h2>
+                <a href="labs/Tutorial Week 1.pdf"class="lab-link">📄 Lab 1 Exercise</a>
+                <a href="labs/week02soln.py" class="lab-link">✅ Solution</a>
+            </div>
+
+            <div class="lab-card">
+                <h2>Week 2: Starting with SQL</h2>
+                <a href="labs/Tutorial Week 2-1.pdf" class="lab-link">📄 Lab 2 Exercise</a>
+                <a href="labs/week02soln-updated.pdf" class="lab-link">✅ Solution</a>
+            </div>
+            <div class="lab-card">
+                <h2>Week 3: SQL Queries</h2>
+                <a href="labs/Tutorial 3-1.pdf" class="lab-link">📄 Lab 3 Exercise</a>
+                <a href="labs/week04soln (1) (1).sql" class="lab-link">✅ Solution</a>
+            </div>
+            <div class="lab-card">
+                <h2>Week 4:Introduction to HTML and CSS</h2>
+                <a href="labs/Tutorial 4-1.pdf" class="lab-link">📄 Lab 4 Exercise</a>
+                <a href="labs/week05soln-sql.sql" class="lab-link">✅ Solution</a>
+            </div>
+            <div class="lab-card">
+                <h2>Week 6:Introduction to Flask</h2>
+                <a href="labs/Tutorial Week 6-1.pdf" class="lab-link">📄 Lab 6 Exercise</a>
+                <a href="labs/tut06 soln.zip" class="lab-link">✅ Solution</a>
+            </div>
+            <div class="lab-card">
+                <h2>Week 7: Introduction to JavaScript</h2>
+                <a href="labs/Tutorial Week 7-1.pdf" class="lab-link">📄 Lab 7 Exercise</a>
+                <a href="labs/week09soln.zip" class="lab-link">✅ Solution</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ 页脚 -->
+    <footer>
+        <p>© 2025 CSCB20 Course Website | <a href="https://web.cs.toronto.edu/">Faculty of Computer Science at UofT</a></p>
+        <p>Site design by Shuqing Tu and Yiqin Gao</p>
+    </footer>
+
+</body>
+</html>

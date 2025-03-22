@@ -14,7 +14,29 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
-    user_type = db.Column(db.String(10), nullable=False)
+    user_type = db.Column(db.String(10), nullable=False)  # 'Student' or 'Instructor'
+
+# 成绩表
+class Grade(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False)  # 外键也可以连到 User.username
+    grade = db.Column(db.Float, nullable=False)
+    name = db.Column(db.String(100), nullable=False)  # 作业名或题目名
+
+# 复查请求表
+class Regrade(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(100), nullable=False)  # 哪一题/哪一项
+    message = db.Column(db.Text, nullable=False)
+    status = db.Column(db.String(10), default='Pending')  # 'Pending', 'Approved', 'Rejected'
+
+# 投诉/建议表（Annoy Feed）
+class AnnoyFeed(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    status = db.Column(db.String(10), default='open')  # 'open', 'reviewed'
 
 # 注册
 @app.route('/register', methods=['GET', 'POST'])
@@ -38,6 +60,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, request.form['password']):
             session['user_id'] = user.id
             session['user_type'] = user.user_type
+            session['username'] = user.username
             return redirect('/dashboard')
         else:
             error = "Incorrect username or password."
@@ -48,16 +71,10 @@ def login():
 def dashboard():
     if 'user_id' not in session:
         return redirect('/login')
-    if session['user_type'] == 'student':
-        return render_template('student_dashboard.html')
-    return render_template('instructor_dashboard.html')
+    if session['user_type'].lower() == 'student':
+        return render_template('student/dashboard.html')
+    return render_template('instructor/dashboard.html')
 
-# 保护内容页面
-@app.route('/labs')
-def labs():
-    if 'user_id' not in session:
-        return redirect('/login')
-    return render_template('labs.html')
 
 # 首页
 @app.route('/')
