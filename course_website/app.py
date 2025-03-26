@@ -278,17 +278,16 @@ def submit_remark():
     message = data['message']
     username = session['username']
 
-    existing = Regrade.query.filter_by(username=username, name=assignment).first()
-    if existing:
-        existing.message = message
-        existing.status = 'Pending'
-    else:
-        request_obj = Regrade(username=username, name=assignment, message=message)
-        db.session.add(request_obj)
-    
+    # 每次都新建一个请求，不覆盖旧的
+    new_request = Regrade(username=username, name=assignment, message=message)
+    db.session.add(new_request)
     db.session.commit()
-    return jsonify({"success": True})
 
+    return jsonify({
+        "success": True,
+        "status": new_request.status,
+        "message": new_request.message
+    })
 
 
 # 首页

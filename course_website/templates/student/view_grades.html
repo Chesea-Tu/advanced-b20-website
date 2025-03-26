@@ -197,10 +197,16 @@
           if (data.success) {
             statusText.textContent = "✅ Remark request submitted successfully!";
             textarea.value = "";
+            const newStatus = document.createElement('p');
+            newStatus.className = "remark-status-line";
+            newStatus.innerHTML = `<strong>Remark Status:</strong> 
+            <span style="color: orange;">${data.status}</span> — "${data.message}"`;
+            formDiv.parentElement.appendChild(newStatus);
           } else {
             statusText.textContent = "❌ Failed to submit request.";
           }
-        });
+        }
+      );
       }
 </script>
       
