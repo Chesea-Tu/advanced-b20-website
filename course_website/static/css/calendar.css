@@ -158,3 +158,12 @@ footer a:hover {
     align-items: center;
   }
 }
+
+.leftnavigation span, .leftnavigation a {
+  padding: 3px 15px 4px
+}
+.leftnavigation span {
+  background: rgb(114, 95, 160);
+  color: #fff;
+  border-radius : 5px;
+}

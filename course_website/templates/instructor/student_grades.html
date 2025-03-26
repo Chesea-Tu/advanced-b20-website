@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSCB20 - View Your Grades</title>
+    <link href="{{ url_for('static', filename='css/assignments.css') }}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <input type="checkbox" id="dark-mode-toggle">
+    <label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
+
+    <!-- Left Navigation Bar -->
+    <div class="leftnavigation">
+        <ul>
+            <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
+            <li><a href="{{ url_for('instructor_syllabus') }}">Syllabus🚀</a></li>
+            <li><a href="{{ url_for('instructor_calendar') }}">Calendar🗓️</a></li>
+            <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
+            <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
+            <li><a href="{{ url_for('instructor_lectures') }}">Lectures👩‍🏫</a></li>
+            <li><a href="{{ url_for('instructor_labs') }}">Labs👩‍💻</a></li>
+            <li><a href="{{ url_for('instructor_assignments') }}">Assignments✍️</a></li>
+            <li><a href="{{ url_for('instructor_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
+            <li><a href="{{ url_for('instructor_feedback') }}">Feedback😉</a></li>
+            <li><a href="{{ url_for('student_grades') }}"><span>Grades📊</span></a></li>
+            <li><a href="{{ url_for('view_regrade_requests') }}">Regrade📝</a></li>
+        </ul>
+    </div>
+
+    <!-- Header -->
+    <header class="assignment-header">
+        <h1>📋 Your students' Current Grades</h1>
+        <p>Welcome {{ username }}, here is your current progress:</p>
+    </header>
+
+    {% if not grades['Assignment'] and not grades['Lab'] and not grades['Midterm'] and not grades['Final'] %}
+        <p style="text-align:center; font-size: 18px; margin-top: 30px;">
+            📭 No grades available yet. Please check back later!
+        </p>
+    {% endif %}
+
+    <!-- Grades Display Section -->
+    <div class="assignments-container">
+
+        {% if grades['Assignment'] %}
+        <details class="assignment-card">
+            <summary>✍️ Assignments</summary>
+            {% for g in grades['Assignment'] %}
+                <p><strong>{{ g.name }}</strong>: {{ g.grade }}/100</p>
+            {% endfor %}
+        </details>
+        {% endif %}
+
+        {% if grades['Lab'] %}
+        <details class="assignment-card">
+            <summary>👩‍💻 Labs</summary>
+            {% for g in grades['Lab'] %}
+                <p><strong>{{ g.name }}</strong>: {{ g.grade }}/100</p>
+            {% endfor %}
+        </details>
+        {% endif %}
+
+        {% if grades['Midterm'] %}
+        <details class="assignment-card">
+            <summary>📝 Midterm</summary>
+            {% for g in grades['Midterm'] %}
+                <p><strong>{{ g.name }}</strong>: {{ g.grade }}/100</p>
+            {% endfor %}
+        </details>
+        {% endif %}
+
+        {% if grades['Final'] %}
+        <details class="assignment-card">
+            <summary>📚 Final Exam</summary>
+            {% for g in grades['Final'] %}
+                <p><strong>{{ g.name }}</strong>: {{ g.grade }}/100</p>
+            {% endfor %}
+        </details>
+        {% endif %}
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 CSCB20 Course Website | <a href="https://web.cs.toronto.edu/">Faculty of Computer Science at UofT</a></p>
+        <p>Site design by Shuqing Tu and Yiqin Gao</p>
+    </footer>
+
+</body>
+</html>

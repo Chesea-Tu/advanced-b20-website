@@ -8,25 +8,25 @@
 
 
 <div class="background1"></div>
-
 <input type="checkbox" id="dark-mode-toggle">
 <label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
 
 <body>
-        <div class="leftnavigation">
-            <ul>
-                <li><a href="dashboard.html">Home 🏠</a></li>
-                <li><a href="syllabus.html">Syllabus🚀</a></li>
-                <li><a href="calendar.html"><span>Calendar🗓️</span></a></li>
-                <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
-                <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
-                <li><a href="lectures.html">Lectures👩‍🏫</a></li>
-                <li><a href="labs.html">Labs👩‍💻</a></li>
-                <li><a href="assignments.html">Assignments✍️</a></li>
-                <li><a href="resources.html">Course Team🙋‍♀️🙋‍♀️</a></li>
-                <li><a href="anon_feedback.html">Anon Feedback😉</a></li>
-            </ul>
-        </div>
+    <div class="leftnavigation">
+        <ul>
+            <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
+            <li><a href="{{ url_for('student_syllabus') }}">Syllabus🚀</a></li>
+            <li><a href="{{ url_for('student_calendar') }}"><span>Calendar🗓️</span></a></li>
+            <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
+            <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
+            <li><a href="{{ url_for('student_lectures') }}">Lectures👩‍🏫</a></li>
+            <li><a href="{{ url_for('student_labs') }}">Labs👩‍💻</a></li>
+            <li><a href="{{ url_for('student_assignments') }}">Assignments✍️</a></li>
+            <li><a href="{{ url_for('student_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
+            <li><a href="{{ url_for('student_feedback') }}">Anon Feedback😉</a></li>
+            <li><a href="{{ url_for('view_grades') }}">Grades📊</a></li>
+        </ul>
+    </div>
 
 
         <header class="course-title">

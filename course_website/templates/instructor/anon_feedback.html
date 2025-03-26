@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>CSCB20 - Introduction to Databases and Web Applications</title>
-    <link href="anon_feedback.css" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/anon_feedback.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -12,47 +12,51 @@
 <label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
 <div class="leftnavigation">
     <ul>
-        <li><a href="dashboard.html">Home 🏠</a></li>
-        <li><a href="syllabus.html">Syllabus🚀</a></li>
-        <li><a href="calendar.html">Calendar🗓️</a></li>
+        <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
+        <li><a href="{{ url_for('instructor_syllabus') }}">Syllabus🚀</a></li>
+        <li><a href="{{ url_for('instructor_calendar') }}">Calendar🗓️</a></li>
         <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
         <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
-        <li><a href="lectures.html">Lectures👩‍🏫</a></li>
-        <li><a href="labs.html">Labs👩‍💻</a></li>
-        <li><a href="assignments.html">Assignments✍️</a></li>
-        <li><a href="resources.html">Course Team🙋‍♀️🙋‍♀️</a></li>
-        <li><a href="anon_feedback.html"><span>Anon Feedback😉</span></a></li>
+        <li><a href="{{ url_for('instructor_lectures') }}">Lectures👩‍🏫</a></li>
+        <li><a href="{{ url_for('instructor_labs') }}">Labs👩‍💻</a></li>
+        <li><a href="{{ url_for('instructor_assignments') }}">Assignments✍️</a></li>
+        <li><a href="{{ url_for('instructor_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
+        <li><a href="{{ url_for('instructor_feedback') }}"><span>Feedback😉</span></a></li>
+        <li><a href="{{ url_for('student_grades') }}">Grades📊</a></li>
+        <li><a href="{{ url_for('view_regrade_requests') }}">Regrade📝</a></li>
     </ul>
 </div>
+
 <div class="background1"></div>
 <header class="course-title">
     <h1>CSCB20 &mdash; Anonymous Feedback</h1>
 </header>
 
 <div class="content">
-  <table>
-    <tr>
-        <td>
-            <p>
-                To send a message to the instructor, use the form below.  Feedback of all kinds is
-                welcome.  You do not need to enter your name or email address unless you wish to receive
-                a direct response.  Note that your question or a paraphrase of it (but not your name)
-                may be posted (and answered) on the discussion board, in lecture, or in some other
-                public forum.
-            </p>
-
-            <form method="post">
-                <input type="hidden" name="class" value="CSCB63_Anya">
-                (Optional) Your name: <input type="text" name="username"><br>
-                (Optional) Your email: <input type="text" name="email"><br>
-                Your message:<br>
-                <textarea name="comment" cols=40 rows=15></textarea>
-                <br><br>
-                <input type="submit" value="Submit Feedback"><br>
-            </form>
-        </td>
-    </tr>
-  </table>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Change Status</th>
+        </tr>
+        {% for f in feedbacks %}
+        <tr>
+            <td>{{ f.id }}</td>
+            <td>{{ f.message }}</td>
+            <td>{{ f.status }}</td>
+            <td>
+                <form method="POST" action="{{ url_for('update_feedback_status', feedback_id=f.id) }}">
+                    <select name="status">
+                        <option value="open" {% if f.status == 'open' %}selected{% endif %}>Open</option>
+                        <option value="reviewed" {% if f.status == 'reviewed' %}selected{% endif %}>Reviewed</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 
 

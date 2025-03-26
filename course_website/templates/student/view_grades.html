@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSCB20 - View Your Grades</title>
+    <link href="{{ url_for('static', filename='css/assignments.css') }}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <input type="checkbox" id="dark-mode-toggle">
+    <label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
+
+    <!-- Left Navigation Bar -->
+    <div class="leftnavigation">
+        <ul>
+          <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
+          <li><a href="{{ url_for('student_syllabus') }}">Syllabus🚀</a></li>
+          <li><a href="{{ url_for('student_calendar') }}">Calendar🗓️</a></li>
+          <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
+          <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
+          <li><a href="{{ url_for('student_lectures') }}">Lectures👩‍🏫</a></li>
+          <li><a href="{{ url_for('student_labs') }}">Labs👩‍💻</a></li>
+          <li><a href="{{ url_for('student_assignments') }}">Assignments✍️</a></li>
+          <li><a href="{{ url_for('student_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
+          <li><a href="{{ url_for('student_feedback') }}">Anon Feedback😉</a></li>
+          <li><a href="{{ url_for('view_grades') }}"><span>Grades📊</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Header -->
+    <header class="assignment-header">
+      <h1>📋 Your Current Grades</h1>
+      <p>Welcome {{ username }}, here is your current progress:</p>
+  </header>
+
+  {% if not grades['Assignments'] and not grades['Labs'] and not grades['Midterm'] and not grades['Final'] %}
+      <p style="text-align:center; font-size: 18px; margin-top: 30px;">
+          📭 No grades available yet. Please check back later!
+      </p>
+  {% endif %}
+
+  <!-- Grades Display Section -->
+  <div class="assignments-container">
+      
+      {% if grades['Assignments'] %}
+      <details class="assignment-card">
+          <summary>✍️ Assignments</summary>
+          {% for g in grades['Assignments'] %}
+          <div style="margin-bottom: 15px;">
+              <p><strong>{{ g.name }}</strong>: {{ g.grade }}/100</p>
+              <div class="remark-section" data-assignment="{{ g.name }}">
+                  <button onclick="showRemarkForm(this)">📝 Submit Remark Request</button>
+                  <div class="remark-form" style="display: none;">
+                      <textarea placeholder="Enter your reason..." rows="2"></textarea>
+                      <button onclick="submitRemarkRequest(this, '{{ g.name }}')">Submit</button>
+                      <p class="remark-status" style="color: green;"></p>
+                  </div>
+              </div>
+          </div>
+          {% for r in regrades.get(g.name, []) %}
+          <p class="remark-status-line">
+              <strong>📌 Remark Status:</strong>
+              <span class="status-{{ r.status | lower }}">
+                {{ r.status }}
+              </span>
+              — "{{ r.message }}"
+            </p>              
+          {% endfor %}
+          {% endfor %}
+        </details>
+        {% endif %}
+
+      {% if grades['Labs'] %}
+      <details class="assignment-card">
+          <summary>👩‍💻 Labs</summary>
+          {% for g in grades['Labs'] %}
+          <div style="margin-bottom: 15px;">
+              <p><strong>{{ g.name }}</strong>: {{ g.grade }}/100</p>
+              <div class="remark-section" data-assignment="{{ g.name }}">
+                  <button onclick="showRemarkForm(this)">📝 Submit Remark Request</button>
+                  <div class="remark-form" style="display: none;">
+                      <textarea placeholder="Enter your reason..." rows="2"></textarea>
+                      <button onclick="submitRemarkRequest(this, '{{ g.name }}')">Submit</button>
+                      <p class="remark-status" style="color: green;"></p>
+                  </div>
+              </div>
+          </div>
+          {% for r in regrades.get(g.name, []) %}
+          <p class="remark-status-line">
+              <strong>📌 Remark Status:</strong>
+              <span class="status-{{ r.status | lower }}">
+                {{ r.status }}
+              </span>
+              — "{{ r.message }}"
+            </p>              
+          {% endfor %}
+          {% endfor %}
+      </details>
+      {% endif %}
+      
+      {% if grades['Midterm'] %}
+      <details class="assignment-card">
+          <summary>📖 Midterm</summary>
+          {% for g in grades['Midterm'] %}
+          <div style="margin-bottom: 15px;">
+              <p><strong>{{ g.name }}</strong>: {{ g.grade }}/100</p>
+              <div class="remark-section" data-assignment="{{ g.name }}">
+                  <button onclick="showRemarkForm(this)">📝 Submit Remark Request</button>
+                  <div class="remark-form" style="display: none;">
+                      <textarea placeholder="Enter your reason..." rows="2"></textarea>
+                      <button onclick="submitRemarkRequest(this, '{{ g.name }}')">Submit</button>
+                      <p class="remark-status" style="color: green;"></p>
+                  </div>
+              </div>
+          </div>
+          {% for r in regrades.get(g.name, []) %}
+          <p class="remark-status-line">
+              <strong>📌 Remark Status:</strong>
+              <span class="status-{{ r.status | lower }}">
+                {{ r.status }}
+              </span>
+              — "{{ r.message }}"
+            </p>
+            
+          {% endfor %}
+          {% endfor %}
+      </details>
+      {% endif %}
+
+      {% if grades['Final'] %}
+      <details class="assignment-card">
+          <summary>📚 Final Exam</summary>
+          {% for g in grades['Final'] %}
+              <div style="margin-bottom: 15px;">
+              <p><strong>{{ g.name }}</strong>: {{ g.grade }}/100</p>
+              <div class="remark-section" data-assignment="{{ g.name }}">
+                  <button onclick="showRemarkForm(this)">📝 Submit Remark Request</button>
+                  <div class="remark-form" style="display: none;">
+                      <textarea placeholder="Enter your reason..." rows="2"></textarea>
+                      <button onclick="submitRemarkRequest(this, '{{ g.name }}')">Submit</button>
+                      <p class="remark-status" style="color: green;"></p>
+                  </div>
+              </div>
+          </div>
+          {% for r in regrades.get(g.name, []) %}
+          <p class="remark-status-line">
+              <strong>📌 Remark Status:</strong>
+              <span class="status-{{ r.status | lower }}">
+                {{ r.status }}
+              </span>
+              — "{{ r.message }}"
+            </p>              
+          {% endfor %}
+          {% endfor %}
+      </details>
+      {% endif %}
+  </div>
+
+  <!-- Footer -->
+  <footer>
+      <p>© 2025 CSCB20 Course Website | <a href="https://web.cs.toronto.edu/">Faculty of Computer Science at UofT</a></p>
+      <p>Site design by Shuqing Tu and Yiqin Gao</p>
+  </footer>
+
+  <script>
+      function showRemarkForm(button) {
+        const form = button.nextElementSibling;
+        form.style.display = form.style.display === "none" ? "block" : "none";
+      }
+      
+      function submitRemarkRequest(submitButton, assignmentName) {
+        const formDiv = submitButton.parentElement;
+        const textarea = formDiv.querySelector("textarea");
+        const statusText = formDiv.querySelector(".remark-status");
+        const reason = textarea.value.trim();
+      
+        if (!reason) {
+          alert("Please enter a reason.");
+          return;
+        }
+      
+        fetch("/submit_remark", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            assignment: assignmentName,
+            message: reason
+          })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            statusText.textContent = "✅ Remark request submitted successfully!";
+            textarea.value = "";
+          } else {
+            statusText.textContent = "❌ Failed to submit request.";
+          }
+        });
+      }
+</script>
+      
+</body>
+</html>

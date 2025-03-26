@@ -9,25 +9,34 @@
 
 
 <body>
-
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Welcome {{ username }} 🎓</h2>
+        <p>Click the button below to view your current grades.</p >
+        <a href="{{url_for('view_grades')}}" class =  "button-link">📊 View My Grades</a>
+        </div>
+    </div>
+        
 <input type="checkbox" id="dark-mode-toggle">
 <label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
 
 <div class="leftnavigation">
-    <input type="checkbox" id="menu-toggle" class="menu-checkbox">
-    <label for="menu-toggle" class="menu-button">☰ Menu</label>
+    
     <ul>
-        <li><a href="dashboard.html">Home 🏠</a></li>
-        <li><a href="syllabus.html">Syllabus🚀</a></li>
-        <li><a href="calendar.html">Calendar🗓️</a></li>
+        <li><a href="{{ url_for('dashboard') }}"><span>Home 🏠</span></a></li>
+        <li><a href="{{ url_for('student_syllabus') }}">Syllabus🚀</a></li>
+        <li><a href="{{ url_for('student_calendar') }}">Calendar🗓️</a></li>
         <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
         <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
-        <li><a href="lectures.html">Lectures👩‍🏫</a></li>
-        <li><a href="labs.html">Labs👩‍💻</a></li>
-        <li><a href="assignments.html">Assignments✍️</a></li>
-        <li><a href="resources.html">Course Team🙋‍♀️🙋‍♀️</a></li>
-        <li><a href="anon_feedback.html">Anon Feedback😉</a></li>
+        <li><a href="{{ url_for('student_lectures') }}">Lectures👩‍🏫</a></li>
+        <li><a href="{{ url_for('student_labs') }}">Labs👩‍💻</a></li>
+        <li><a href="{{ url_for('student_assignments') }}">Assignments✍️</a></li>
+        <li><a href="{{ url_for('student_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
+        <li><a href="{{ url_for('student_feedback') }}">Anon Feedback😉</a></li>
+        <li><a href="{{ url_for('view_grades') }}">Grades📊</a></li>
     </ul>
+    
 </div>
 
 <header class="course-title">
@@ -46,14 +55,14 @@
         <h2>What You Will Learn:</h2>
 
         <p><strong>Databases:</strong></p>
-        <img src="personal_picture/Sqlite.jpg"alt="Database" class="card-img">
+        <img src="{{ url_for('static', filename='sources/personal_picture/Sqlite.jpg') }}" alt="Database" class="card-img">
         <ul>
             <li>Key terminology and practical applications</li>
             <li>Creating, querying, and updating databases</li>
             <li>Designing databases using the entity-relationship model</li>
         </ul>
         <p><strong>Web Development:</strong></p>
-        <img src="personal_picture/web.png"alt="Web Development" class="card-img">
+        <img src="{{ url_for('static', filename='sources/personal_picture/web.png') }}" alt="Web Development" class="card-img">
         <ul>
             <li>Building static and interactive web documents</li>
             <li>Setting up web servers and generating dynamic, server-side content</li>
@@ -104,5 +113,28 @@
     <p>© 2025 CSCB20 Course Website | <a href="https://www.utsc.utoronto.ca/cms/computer-science">Faculty of Computer Science at UofT</a></p>
     <p>Site design by Shuqing Tu and Yiqin Gao</p>
 </footer>
+<script>
+    window.onload = function() {
+        var modal = document.getElementById("welcomeModal");
+        var span = document.getElementsByClassName("close")[0];
+    
+        // 显示弹窗
+        modal.style.display = "flex";
+
+    
+        // 点击关闭按钮
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    
+        // 点击弹窗外关闭
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+</script>
+
 </body>
 </html>

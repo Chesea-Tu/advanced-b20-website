@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>CSCB20 - Introduction to Databases and Web Applications</title>
-    <link href="lectures.css" rel="stylesheet" type="text/css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>CSCB20 - Introduction to Databases and Web Applications</title>
+        <link href="{{ url_for('static', filename='css/lectures.css') }}" rel="stylesheet" type="text/css">
+    </head>
+    
 
 
 <body>
@@ -15,16 +16,18 @@
     <div class="content">
         <div class="leftnavigation">
             <ul>
-                <li><a href="dashboard.html">Home 🏠</a></li>
-                <li><a href="syllabus.html">Syllabus🚀</a></li>
-                <li><a href="calendar.html">Calendar🗓️</a></li>
+                <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
+                <li><a href="{{ url_for('instructor_syllabus') }}">Syllabus🚀</a></li>
+                <li><a href="{{ url_for('instructor_calendar') }}">Calendar🗓️</a></li>
                 <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
                 <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
-                <li><a href="lectures.html"><span>Lectures👩‍🏫</span></a></li>
-                <li><a href="labs.html">Labs👩‍💻</a></li>
-                <li><a href="assignments.html">Assignments✍️</a></li>
-                <li><a href="resources.html">Course Team🙋‍♀️🙋‍♀️</a></li>
-                <li><a href="anon_feedback.html">Anon Feedback😉</a></li>
+                <li><a href="{{ url_for('instructor_lectures') }}"><span>Lectures👩‍🏫</span></a></li>
+                <li><a href="{{ url_for('instructor_labs') }}">Labs👩‍💻</a></li>
+                <li><a href="{{ url_for('instructor_assignments') }}">Assignments✍️</a></li>
+                <li><a href="{{ url_for('instructor_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
+                <li><a href="{{ url_for('instructor_feedback') }}">Feedback😉</a></li>
+                <li><a href="{{ url_for('student_grades') }}">Grades📊</a></li>
+                <li><a href="{{ url_for('view_regrade_requests') }}">Regrade📝</a></li>
             </ul>
         </div>
         <header class="lectures-header">
@@ -35,40 +38,40 @@
             <div class="week-card">
                 <h3>Jan 6-10</h3>
                 <p><strong>Topic:</strong> Introduction</p>
-                <a href="pdfs/Week 0 Lecture Notes.pdf">📄 Week0 Lecture Notes</a>
+                <a href="{{ url_for('static', filename='sources/pdfs/Week 0 Lecture Notes.pdf') }}">📄 Week0 Lecture Notes</a>
             </div>
 
             <div class="week-card">
                 <h3>Jan 13-17</h3>
                 <p><strong>Topic:</strong> Relational Algebra</p>
-                <a href="pdfs/Week 1 - Relational Algebra.pdf">📄 Week1 Lecture Notes</a>
-                <a href="pdfs/Week 1 worksheet.pdf">📝 Week1 Worksheet</a>
-                <a href="pdfs/Week 1 worksheet solution.pdf">✅ Worksheet Solution</a>
+                <a href="{{ url_for('static', filename='sources/pdfs/Week 1 - Relational Algebra.pdf') }}">📄 Week1 Lecture Notes</a>
+                <a href="{{ url_for('static', filename='sources/pdfs/Week 1 worksheet.pdf') }}">📝 Week1 Worksheet</a>
+                <a href="{{ url_for('static', filename='sources/pdfs/Week 1 worksheet solution.pdf') }}">✅ Worksheet Solution</a>
             </div>
 
             <div class="week-card">
                 <h3>Jan 20-24</h3>
                 <p><strong>Topic:</strong> Relational Algebra & SQL</p>
-                <a href="pdfs/Week 2 - RA and Introduction to SQL.pdf">📄 Week2 Lecture Notes</a>
-                <a href="pdfs/ReLax_query_examples_inclass_week2.txt">📝 ReLax Queries</a>
+                <a href="{{ url_for('static', filename='sources/pdfs/Week 2 - RA and Introduction to SQL.pdf') }}">📄 Week2 Lecture Notes</a>
+                <a href="{{ url_for('static', filename='sources/pdfs/ReLax_query_examples_inclass_week2.txt') }}">📝 ReLax Queries</a>
             </div>
 
             <div class="week-card">
                 <h3>Jan 27-31</h3>
                 <p><strong>Topic:</strong> SQL Queries</p>
-                <a href="pdfs/Week 3 - SQL (1).pdf">📄 Week3 Lecture Notes</a>
+                <a href="{{ url_for('static', filename='sources/pdfs/Week 3 - SQL (1).pdf') }}">📄 Week3 Lecture Notes</a>
             </div>
 
             <div class="week-card">
                 <h3>Feb 3-7</h3>
                 <p><strong>Topic:</strong> SQL Subqueries & Web Development</p>
-                <a href="pdfs/SQL-Subqueries (3).pdf">📄 Week4 Lecture Notes</a>
+                <a href="{{ url_for('static', filename='sources/pdfs/SQL-Subqueries (3).pdf') }}">📄 Week4 Lecture Notes</a>
             </div>
 
             <div class="week-card">
                 <h3>Feb 10-14</h3>
                 <p><strong>Topic:</strong> Flask & HTML/CSS</p>
-                <a href="pdfs/Week 5 - Introduction to Web Development (1).pdf">📄 Week5 Lecture Notes</a>
+                <a href="{{ url_for('static', filename='sources/pdfs/Week 5 - Introduction to Web Development (1).pdf') }}">📄 Week5 Lecture Notes</a>
             </div>
 
             <div class="week-card special">

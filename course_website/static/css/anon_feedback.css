@@ -1,3 +1,4 @@
+
 html {
     font-size: 100.01%;
     margin: 2%;
@@ -50,16 +51,13 @@ html, body {
     border-radius: 5px;
 }
 
-.content {
-    flex: 1;
-    padding: 20px;
-}
+
 
 :root {
     --nav-height: 20vh;
   }
   
-  .course-title {
+.course-title {
     text-align: center;
     background-color: aliceblue;
     color: rgb(114, 95, 160);
@@ -69,7 +67,7 @@ html, body {
     border-bottom: 2px solid #003366;
     max-width: 100%;
     box-sizing: border-box;
-  }
+}
   
 #dark-mode-toggle:checked ~ .content .leftnavigation ul li a:hover{
     background-color: rgb(196, 194, 199);
@@ -84,6 +82,7 @@ html, body {
   background: rgb(114, 95, 160);
   color: #fff
 }
+
 
 #dark-mode-toggle {
     display: none;
@@ -178,4 +177,49 @@ footer a:hover { text-decoration: underline; }
     table {
         width: 95%;
     }
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* 状态颜色行样式 */
+.regrade-pending {
+    background-color: #fff9c4; /* 柔和黄色 */
+}
+
+.regrade-approved {
+    background-color: #c8e6c9; /* 柔和绿色 */
+}
+
+.regrade-rejected {
+    background-color: #ffcdd2; /* 柔和红色 */
+}
+
+/* 表格整体样式 */
+.content table {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 40px auto;
+    font-size: 16px;
+}
+
+.content th,
+.content td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+}
+
+.content th {
+    background-color: #f5f5f5;
+}
+
+/* 选项按钮 */
+.content form select,
+.content form button {
+    padding: 6px 10px;
+    font-size: 14px;
+    margin-right: 5px;
 }

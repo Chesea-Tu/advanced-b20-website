@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>CSCB20 - Introduction to Databases and Web Applications</title>
-    <link href="assigments.css" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/assignments.css') }}" rel="stylesheet" type="text/css">
 </head>
-
 <body>
 
     <div class="background"></div>
@@ -15,16 +14,18 @@
 
     <div class="leftnavigation">
         <ul>
-            <li><a href="index.html">Home 🏠</a></li>
-            <li><a href="syllabus.html">Syllabus🚀</a></li>
-            <li><a href="calendar.html">Calendar🗓️</a></li>
+            <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
+            <li><a href="{{ url_for('instructor_syllabus') }}">Syllabus🚀</a></li>
+            <li><a href="{{ url_for('instructor_calendar') }}">Calendar🗓️</a></li>
             <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
             <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
-            <li><a href="lectures.html">Lectures👩‍🏫</a></li>
-            <li><a href="labs.html">Labs👩‍💻</a></li>
-            <li><a href="assignments.html"><span>Assignments✍️</span></a></li>
-            <li><a href="resources.html">Course Team🙋‍♀️🙋‍♀️</a></li>
-            <li><a href="anon_feedback.html">Anon Feedback😉</a></li>
+            <li><a href="{{ url_for('instructor_lectures') }}">Lectures👩‍🏫</a></li>
+            <li><a href="{{ url_for('instructor_labs') }}">Labs👩‍💻</a></li>
+            <li><a href="{{ url_for('instructor_assignments') }}"><span>Assignments✍️</span></a></li>
+            <li><a href="{{ url_for('instructor_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
+            <li><a href="{{ url_for('instructor_feedback') }}">Feedback😉</a></li>
+            <li><a href="{{ url_for('student_grades') }}">Grades📊</a></li>
+            <li><a href="{{ url_for('view_regrade_requests') }}">Regrade📝</a></li>
         </ul>
     </div>
     
@@ -38,7 +39,11 @@
         <details class="assignment-card">
             <summary>📄 Assignment 1: SmartCity Initiative</summary>
             <p><strong>‼️Due Date:</strong> February 11, 2025</p>
-            <p><strong>Handouts: </strong><a href="pdfs/RA_Algorithms-1.pdf">Assignment1 handout</a></p>
+            <p><strong>Handouts: </strong>
+                <a href="{{ url_for('static', filename='sources/pdfs/RA_Algorithms-1.pdf') }}" target="_blank">
+                    Assignment1 handout
+                </a>
+            </p>            
             <p><strong>Group Size</strong>: You must work in a group of <strong>two or three</strong>.</p>
             <p><strong>Topics Covered:</strong> SELECT, JOIN, GROUP BY</p>
             <p><strong>Points: </strong>95</p>
@@ -49,7 +54,11 @@
         <details class="assignment-card">
             <summary>🖥️ Assignment 2: Building a Dynamic Course Website & Flask-Based Web Application</summary>
             <p><strong>‼️Due Date:</strong> March 12, 2025</p>
-            <p><strong>Handouts: </strong><a href="pdfs/RA_Algorithms-1.pdf">Assignment2 handout</a></p>
+            <p><strong>Handouts: </strong>
+                <a href="{{ url_for('static', filename='sources/pdfs/RA_Algorithms-1.pdf') }}" target="_blank">
+                    Assignment2 handout
+                </a>
+            </p>            
             <p><strong>Group Size</strong>: You must work in a group of <strong>two or three</strong>.</p>
             <p><strong>Topics Covered:</strong> HTML, CSS, Python Flask, Web Development</p>
             <p>Submit via <a href="markus.html">MarkUs</a>.</p>

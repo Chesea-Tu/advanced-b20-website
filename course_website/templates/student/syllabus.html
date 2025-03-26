@@ -12,16 +12,17 @@
 
     <div class="leftnavigation">
         <ul>
-            <li><a href="dashboard.html">Home 🏠</a></li>
-            <li><a href="syllabus.html"><span>Syllabus🚀</span></a></li>
-            <li><a href="calendar.html">Calendar🗓️</a></li>
+            <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
+            <li><a href="{{ url_for('student_syllabus') }}"><span>Syllabus🚀</span></a></li>
+            <li><a href="{{ url_for('student_calendar') }}">Calendar🗓️</a></li>
             <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
             <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
-            <li><a href="lectures.html">Lectures👩‍🏫</a></li>
-            <li><a href="labs.html">Labs👩‍💻</a></li>
-            <li><a href="assignments.html">Assignments✍️</a></li>
-            <li><a href="resources.html">Course Team🙋‍♀️🙋‍♀️</a></li>
-            <li><a href="anon_feedback.html">Anon Feedback😉</a></li>
+            <li><a href="{{ url_for('student_lectures') }}">Lectures👩‍🏫</a></li>
+            <li><a href="{{ url_for('student_labs') }}">Labs👩‍💻</a></li>
+            <li><a href="{{ url_for('student_assignments') }}">Assignments✍️</a></li>
+            <li><a href="{{ url_for('student_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
+            <li><a href="{{ url_for('student_feedback') }}">Anon Feedback😉</a></li>
+            <li><a href="{{ url_for('view_grades') }}">Grades📊</a></li>
         </ul>
     </div>
     
@@ -47,7 +48,7 @@
         <div class="syllabus-download">
             <h2>📄 Full Syllabus (PDF)</h2>
             <p>Click the button below to download the complete syllabus.</p><br>
-            <a href="pdfs/Syllabus.pdf" class="syllabus-link">📥 Download Syllabus</a>
+            <a href="{{ url_for('static', filename='sources/pdfs/Syllabus.pdf') }}" class="syllabus-link" download>📥 Download Syllabus</a>
         </div>
     </div>
 

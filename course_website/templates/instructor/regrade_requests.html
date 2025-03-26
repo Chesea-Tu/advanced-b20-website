@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSCB20 - View Your Grades</title>
+    <link href="{{ url_for('static', filename='css/regrade_requests.css') }}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <input type="checkbox" id="dark-mode-toggle">
+    <label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
+
+    <!-- Left Navigation Bar -->
+    <div class="leftnavigation">
+        <ul>
+            <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
+            <li><a href="{{ url_for('instructor_syllabus') }}">Syllabus🚀</a></li>
+            <li><a href="{{ url_for('instructor_calendar') }}">Calendar🗓️</a></li>
+            <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
+            <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
+            <li><a href="{{ url_for('instructor_lectures') }}">Lectures👩‍🏫</a></li>
+            <li><a href="{{ url_for('instructor_labs') }}">Labs👩‍💻</a></li>
+            <li><a href="{{ url_for('instructor_assignments') }}">Assignments✍️</a></li>
+            <li><a href="{{ url_for('instructor_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
+            <li><a href="{{ url_for('instructor_feedback') }}">Feedback😉</a></li>
+            <li><a href="{{ url_for('student_grades') }}">Grades📊</a></li>
+            <li><a href="{{ url_for('view_regrade_requests') }}"><span>Regrade📝</span></a></li>
+        </ul>
+    </div>
+        <!-- Header -->
+    <header class="course-title">
+        <h1>📋 Your students' Regrade Request</h1>
+        <p>Welcome {{ username }}, here is your current progress:</p>
+    </header>
+
+    <div class="content">
+        <table border="1" cellpadding="10" style="margin: 40px;">
+        <tr>
+                <th>ID</th>
+                <th>Student Username</th>
+                <th>Item</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Change Status</th>
+        </tr>
+        {% for r in requests %}
+        <tr class="{% if r.status == 'Pending' %}regrade-pending{% elif r.status == 'Approved' %}regrade-approved{% elif r.status == 'Rejected' %}regrade-rejected{% endif %}">
+        <td>{{ r.id }}</td>
+        <td>{{ r.username }}</td>
+        <td>{{ r.name }}</td>
+        <td>{{ r.message }}</td>
+        <td>{{ r.status }}</td>
+        <td>
+        <form method="POST" action="{{ url_for('update_regrade_status', request_id=r.id) }}">
+            <select name="status">
+                <option value="Pending" {% if r.status == 'Pending' %}selected{% endif %}>Pending</option>
+                <option value="Approved" {% if r.status == 'Approved' %}selected{% endif %}>Approved</option>
+                <option value="Rejected" {% if r.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+            </select>
+            <button type="submit">Update</button>
+        </form>
+    </td>
+</tr>
+{% endfor %}
+
+        </table>
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 CSCB20 Course Website | <a href="https://web.cs.toronto.edu/">Faculty of Computer Science at UofT</a></p>
+        <p>Site design by Shuqing Tu and Yiqin Gao</p>
+    </footer>
+
+</body>
+</html>
