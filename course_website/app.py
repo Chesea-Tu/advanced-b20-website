@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for, j
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from sqlalchemy import case
+from flask import flash
 
 app = Flask(__name__)
 app.secret_key = 'some_secret_key'
@@ -32,12 +33,16 @@ class Regrade(db.Model):
     message = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(10), default='Pending')  # 'Pending', 'Approved', 'Rejected'
 
-# 投诉/建议表（Annoy Feed）
-class AnnoyFeed(db.Model):
+# 匿名反馈表
+class AnonymousFeedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), nullable=False)
-    message = db.Column(db.Text, nullable=False)
-    status = db.Column(db.String(10), default='open')  # 'open', 'reviewed'
+    instructor = db.Column(db.String(50), nullable=False)  # 教师用户名
+    like_teaching = db.Column(db.Text, nullable=False)
+    improve_teaching = db.Column(db.Text, nullable=False)
+    like_labs = db.Column(db.Text, nullable=False)
+    improve_labs = db.Column(db.Text, nullable=False)
+    additional = db.Column(db.Text)  # 可为空
+    status = db.Column(db.String(10), default='open')  # open / reviewed
 
 # 注册
 @app.route('/register', methods=['GET', 'POST'])
@@ -157,10 +162,10 @@ def instructor_feedback():
         return redirect('/login')
 
     # open 的放前面，reviewed 的放后面
-    feedbacks = AnnoyFeed.query.order_by(
+    feedbacks = AnonymousFeedback.query.order_by(
         db.case(
-            (AnnoyFeed.status == 'open', 0),
-            (AnnoyFeed.status == 'reviewed', 1),
+            (AnonymousFeedback.status == 'open', 0),
+            (AnonymousFeedback.status == 'reviewed', 1),
         )
     ).all()
 
@@ -172,7 +177,7 @@ def update_feedback_status(feedback_id):
         return redirect('/login')
 
     new_status = request.form.get('status')
-    feedback = AnnoyFeed.query.get_or_404(feedback_id)
+    feedback = AnonymousFeedback.query.get_or_404(feedback_id)
     feedback.status = new_status
     db.session.commit()
     
@@ -224,9 +229,6 @@ def student_assignments():
 def student_resources():
     return render_template('student/resources.html')
 
-@app.route('/student/anon_feedback')
-def student_feedback():
-    return render_template('student/anon_feedback.html')
 
 @app.route('/view_grades')
 def view_grades():
@@ -289,11 +291,42 @@ def submit_remark():
         "message": new_request.message
     })
 
+@app.route('/student/anon_feedback', methods=['GET', 'POST'])
+def student_feedback():
+    if 'username' not in session or session['user_type'].lower() != 'student':
+        return redirect('/login')
 
-# 首页
+    instructors = User.query.filter_by(user_type='instructor').all()
+
+    if request.method == 'POST':
+        instructor = request.form.get('instructor')
+        like_teaching = request.form.get('like_teaching')
+        improve_teaching = request.form.get('improve_teaching')
+        like_labs = request.form.get('like_labs')
+        improve_labs = request.form.get('improve_labs')
+        additional = request.form.get('additional')
+
+        feedback = AnonymousFeedback(
+            instructor=instructor,
+            like_teaching=like_teaching,
+            improve_teaching=improve_teaching,
+            like_labs=like_labs,
+            improve_labs=improve_labs,
+            additional=additional
+        )
+        db.session.add(feedback)
+        db.session.commit()
+        flash("Your feedback has been submitted successfully!")
+        return redirect(url_for('student_feedback'))
+
+    return render_template('student/anon_feedback.html', instructors=instructors)
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
