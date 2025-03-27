@@ -169,8 +169,8 @@ html {
   }
   
   #dark-mode-toggle:checked ~ .leftnavigation span {
-    background: rgb(196, 194, 199);  /* hover 灰底 */
-    color: #1b1919;                  /* 文字深色 */
+    background: rgb(196, 194, 199);
+    color: #1b1919;
     border-radius: 5px;
   }  
   
@@ -187,12 +187,38 @@ html {
   #dark-mode-toggle:checked ~ .background {
     background-color: #4c4a4a;
     color: #E0E0E0;
+    border: 1px solid gold;
+    box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.4);
+    border-radius: 15px;
+    padding: 20px;
+    transition: all 0.4s ease;
 }
 
+#dark-mode-toggle:checked ~ .background .content table {
+    border: 2px solid gold;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    background-color: #1b1919;
+    color: #E0E0E0;
+    transition: all 0.3s ease;
+  }
+  
+
 #dark-mode-toggle:checked ~ .content {
-    background-color: #4c4a4a !important;
+    background-color: #1c1c1c !important;
     color: #E0E0E0 !important;
-}
+    border: 2px solid gold;
+    box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  #dark-mode-toggle:checked ~ .content form {
+    box-shadow: 0 0 15px 3px rgba(255, 215, 0, 0.2); 
+    border-radius: 10px;
+    border: 1px solid gold;
+  }
+  
+  
   
   #dark-mode-toggle:checked ~ form,
   #dark-mode-toggle:checked ~ table {
@@ -212,10 +238,10 @@ html {
 }
 
 #dark-mode-toggle:checked ~ .content table {
-    background-color: #2E2E2E;
+    background-color: #1b1919;
     color: #E0E0E0;
     border: 2px solid gold;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); /* 金光边框 */
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
   
 #dark-mode-toggle:checked ~ .content table td,
@@ -277,12 +303,6 @@ footer a:hover {
     box-sizing: border-box;
 }
 
-/* 确保所有背景元素都正确应用暗黑模式 */
-#dark-mode-toggle:checked ~ * {
-    background-color: #121212;
-}
-
-/* 特别处理左侧区域 */
 #dark-mode-toggle:checked ~ .content {
     background-color: #333 !important;
 }
@@ -293,9 +313,8 @@ footer a:hover {
     border-bottom: 2px solid #FFD700;
 }
 
-/* 新增修复暗黑模式的CSS */
-#dark-mode-toggle:checked ~ body {
-    background-color: #121212 !important;
+#dark-mode-toggle:checked ~ .background {
+    background-color: #4c4a4a !important;
 }
 
 #dark-mode-toggle:checked ~ .course-title h1,
@@ -311,7 +330,6 @@ footer a:hover {
     background-color: #1E1E1E !important;
 }
 
-/* 确保文本区域和选择框在暗黑模式下正确显示 */
 #dark-mode-toggle:checked ~ * textarea,
 #dark-mode-toggle:checked ~ * select {
     background-color: #3a3a3a !important;
@@ -319,7 +337,6 @@ footer a:hover {
     border-color: #666 !important;
 }
 
-/* 修复表格在暗黑模式下的样式问题 */
 #dark-mode-toggle:checked ~ div.content table {
     background-color: #2E2E2E !important;
     color: #E0E0E0 !important;
@@ -332,18 +349,16 @@ footer a:hover {
     border-color: #666 !important;
 }
 
-/* 修复表单提交按钮 */
 #dark-mode-toggle:checked ~ * button[type="submit"] {
     background-color: darkkhaki !important;
     color: black !important;
 }
 
-/* 修复提交成功消息 */
+
 #dark-mode-toggle:checked ~ .content p[style*="color: green"] {
     color: lightgreen !important;
 }
 
-/* 修复嵌套过深的元素 */
 html.dark-mode,
 body.dark-mode,
 .dark-mode * {
@@ -352,8 +367,8 @@ body.dark-mode,
 }
 
 .flash-message {
-    background-color: #dff0d8; /* 淡绿色背景 */
-    color: #3c763d;            /* 深绿色文字 */
+    background-color: #dff0d8;
+    color: #3c763d;
     padding: 12px 18px;
     border: 1px solid #c3e6cb;
     border-radius: 8px;
@@ -362,7 +377,6 @@ body.dark-mode,
     text-align: center;
   }
   
-  /* 暗黑模式下的提示色 */
   #dark-mode-toggle:checked ~ .content .flash-message {
     background-color: #2d4b2d;
     color: #bfffbf;

@@ -14,6 +14,15 @@ html, body {
     background-color: aliceblue;
 }
 
+#dark-mode-toggle:checked ~ body {
+  background-color: #121212;
+}
+
+#dark-mode-toggle:checked ~ html {
+  background-color: #121212;
+}
+
+
 .content {
     flex: 1;
     padding: 20px;
@@ -198,7 +207,7 @@ footer a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 .assignment-card {
@@ -250,6 +259,7 @@ footer a:hover {
 #dark-mode-toggle:checked ~ .assignments-container .assignment-card {
     background-color: #2E2E2E;
     color: #E0E0E0;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
 }
 
 #dark-mode-toggle:checked ~ .assignments-container .assignment-card summary {

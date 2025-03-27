@@ -20,7 +20,7 @@
         <li><a href="{{ url_for('student_lectures') }}">Lectures👩‍🏫</a></li>
         <li><a href="{{ url_for('student_labs') }}">Labs👩‍💼</a></li>
         <li><a href="{{ url_for('student_assignments') }}">Assignments✍️</a></li>
-        <li><a href="{{ url_for('student_resources') }}">Course Team🛉🛉</a></li>
+        <li><a href="{{ url_for('student_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
         <li><a href="{{ url_for('student_feedback') }}"><span>Anon Feedback😉</span></a></li>
         <li><a href="{{ url_for('view_grades') }}">Grades📊</a></li>
     </ul>
@@ -30,6 +30,8 @@
     <h1>Anonymous Feedback</h1>
     <p>Your feedback helps us improve teaching and learning experiences. All responses are anonymous and confidential.</p>
 </header>
+
+<div class = background>
 
 <div class="content">
     {% with messages = get_flashed_messages() %}
@@ -87,7 +89,7 @@
   
   {% endif %}
 </div>
-
+</div>
 <footer>
   <p>© 2025 CSCB20 Course Website | <a href="https://www.utsc.utoronto.ca/cms/computer-science">Faculty of Computer Science at UofT</a></p>
   <p>Site design by Shuqing Tu and Yiqin Gao</p>
