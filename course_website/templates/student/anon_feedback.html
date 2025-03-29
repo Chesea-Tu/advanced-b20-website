@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CSCB20 - Introduction to Databases and Web Applications</title>
+    <title>CSCB20 - Anonymous Feedback</title>
     <link href="{{ url_for('static', filename='css/anon_feedback.css') }}" rel="stylesheet" type="text/css">
 </head>
-
 
 <body>
 <input type="checkbox" id="dark-mode-toggle">
 <label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
+
 <div class="leftnavigation">
     <ul>
-        <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
+        <li><a href="{{ url_for('student_dashboard') }}">Home 🏠</a></li>
         <li><a href="{{ url_for('student_syllabus') }}">Syllabus🚀</a></li>
         <li><a href="{{ url_for('student_calendar') }}">Calendar🗓️</a></li>
         <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
         <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
         <li><a href="{{ url_for('student_lectures') }}">Lectures👩‍🏫</a></li>
-        <li><a href="{{ url_for('student_labs') }}">Labs👩‍💻</a></li>
+        <li><a href="{{ url_for('student_labs') }}">Labs👩‍💼</a></li>
         <li><a href="{{ url_for('student_assignments') }}">Assignments✍️</a></li>
         <li><a href="{{ url_for('student_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
         <li><a href="{{ url_for('student_feedback') }}"><span>Anon Feedback😉</span></a></li>
@@ -26,41 +26,90 @@
     </ul>
 </div>
 
-<div class="background1"></div>
 <header class="course-title">
-    <h1>CSCB20 &mdash; Anonymous Feedback</h1>
+    <h1>Anonymous Feedback</h1>
+    <p>Your feedback helps us improve teaching and learning experiences. All responses are anonymous and confidential.</p>
 </header>
 
+<div class = background>
+
 <div class="content">
-  <table>
-    <tr>
-        <td>
-            <p>
-                To send a message to the instructor, use the form below.  Feedback of all kinds is
-                welcome.  You do not need to enter your name or email address unless you wish to receive
-                a direct response.  Note that your question or a paraphrase of it (but not your name)
-                may be posted (and answered) on the discussion board, in lecture, or in some other
-                public forum.
-            </p>
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flash-message">
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
 
-            <form method="post">
-                <input type="hidden" name="class" value="CSCB63_Anya">
-                (Optional) Your name: <input type="text" name="username"><br>
-                (Optional) Your email: <input type="text" name="email"><br>
-                Your message:<br>
-                <textarea name="comment" cols=40 rows=15></textarea>
-                <br><br>
-                <input type="submit" value="Submit Feedback"><br>
-            </form>
+  {% if submitted %}
+    <p style="text-align:center; color: green; font-size: 18px; font-weight: bold;">Your feedback has been submitted successfully!</p>
+  {% else %}
+  <form method="post" autocomplete="off">
+    <table>
+      <tr>
+        <td colspan="2">
+          <label for="instructor">🔍 Choose Instructor:</label>
+          <select name="instructor" id="instructor" required>
+              {% for i in instructors %}
+                <option value="{{ i.username }}">{{ i.username }}</option>
+              {% endfor %}
+          </select>
         </td>
-    </tr>
-  </table>
+      </tr>
+      <tr>
+        <td>1. What do you like about <span id="selected-instructor-1">the instructor</span>’s teaching?</td>
+        <td><textarea name="like_teaching" required></textarea></td>
+      </tr>
+      <tr>
+        <td>2. What can be improved in <span id="selected-instructor-2">the instructor</span>’s teaching?</td>
+        <td><textarea name="improve_teaching" required></textarea></td>
+      </tr>
+      <tr>
+        <td>3. What do you like about the labs?</td>
+        <td><textarea name="like_labs" required></textarea></td>
+      </tr>
+      <tr>
+        <td>4. What can be improved in the labs?</td>
+        <td><textarea name="improve_labs" required></textarea></td>
+      </tr>
+      <tr>
+        <td>5. Additional Comments (Optional):</td>
+        <td><textarea name="additional" placeholder="Any other suggestions or comments?"></textarea></td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: center;">
+          <button type="submit">📄 Submit Feedback</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+  
+  {% endif %}
 </div>
-
-
+</div>
 <footer>
-    <p>© 2025 CSCB20 Course Website | <a href="https://www.utsc.utoronto.ca/cms/computer-science">Faculty of Computer Science at UofT</a></p>
-    <p>Site design by Shuqing Tu and Yiqin Gao</p>
+  <p>© 2025 CSCB20 Course Website | <a href="https://www.utsc.utoronto.ca/cms/computer-science">Faculty of Computer Science at UofT</a></p>
+  <p>Site design by Shuqing Tu and Yiqin Gao</p>
 </footer>
+<script>
+    const dropdown = document.getElementById("instructor");
+  const span1 = document.getElementById("selected-instructor-1");
+  const span2 = document.getElementById("selected-instructor-2");
+    dropdown.addEventListener("change", function () {
+      const selected = this.value;
+      span1.textContent = selected;
+      span2.textContent = selected;
+    });
+  
+    window.onload = function () {
+      const selected = dropdown.value;
+      span1.textContent = selected;
+      span2.textContent = selected;
+    };
+</script>
+  
 </body>
 </html>

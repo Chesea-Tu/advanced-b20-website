@@ -6,7 +6,6 @@
     <link href="{{ url_for('static', filename='css/assignments.css') }}" rel="stylesheet" type="text/css">
 </head>
 
-<div class="background1"></div>
 <input type="checkbox" id="dark-mode-toggle">
 <label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
 
@@ -15,7 +14,7 @@
     <label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
     <div class="leftnavigation">
     <ul>
-        <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
+        <li><a href="{{ url_for('student_dashboard') }}">Home 🏠</a></li>
         <li><a href="{{ url_for('student_syllabus') }}">Syllabus🚀</a></li>
         <li><a href="{{ url_for('student_calendar') }}">Calendar🗓️</a></li>
         <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>

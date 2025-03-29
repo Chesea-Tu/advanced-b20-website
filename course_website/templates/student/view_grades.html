@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,7 @@
     <!-- Left Navigation Bar -->
     <div class="leftnavigation">
         <ul>
-          <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
+          <li><a href="{{ url_for('student_dashboard') }}">Home 🏠</a></li>
           <li><a href="{{ url_for('student_syllabus') }}">Syllabus🚀</a></li>
           <li><a href="{{ url_for('student_calendar') }}">Calendar🗓️</a></li>
           <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
@@ -197,10 +198,16 @@
           if (data.success) {
             statusText.textContent = "✅ Remark request submitted successfully!";
             textarea.value = "";
+            const newStatus = document.createElement('p');
+            newStatus.className = "remark-status-line";
+            newStatus.innerHTML = `<strong>Remark Status:</strong> 
+            <span style="color: orange;">${data.status}</span> — "${data.message}"`;
+            formDiv.parentElement.appendChild(newStatus);
           } else {
             statusText.textContent = "❌ Failed to submit request.";
           }
-        });
+        }
+      );
       }
 </script>
       

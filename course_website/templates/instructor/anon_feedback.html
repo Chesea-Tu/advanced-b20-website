@@ -1,18 +1,21 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CSCB20 - Introduction to Databases and Web Applications</title>
-    <link href="{{ url_for('static', filename='css/anon_feedback.css') }}" rel="stylesheet" type="text/css">
+    <title>Instructor - Anonymous Feedback</title>
+    <link href="{{ url_for('static', filename='css/assignments.css') }}" rel="stylesheet" type="text/css">
 </head>
-
 <body>
+
+<div class="background"></div>
+
 <input type="checkbox" id="dark-mode-toggle">
 <label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
+
+<!-- Left Navigation Bar -->
 <div class="leftnavigation">
     <ul>
-        <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
+        <li><a href="{{ url_for('instructor_dashboard') }}">Home 🏠</a></li>
         <li><a href="{{ url_for('instructor_syllabus') }}">Syllabus🚀</a></li>
         <li><a href="{{ url_for('instructor_calendar') }}">Calendar🗓️</a></li>
         <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
@@ -27,42 +30,69 @@
     </ul>
 </div>
 
-<div class="background1"></div>
-<header class="course-title">
-    <h1>CSCB20 &mdash; Anonymous Feedback</h1>
+<header class="assignment-header">
+    <h1>📢 Anonymous Feedback</h1>
+    <p>Hi {{ username }}, here are your students' anonymous feedbacks.</p>
 </header>
 
-<div class="content">
-    <table border="1" cellpadding="10">
-        <tr>
-            <th>ID</th>
-            <th>Message</th>
-            <th>Status</th>
-            <th>Change Status</th>
-        </tr>
-        {% for f in feedbacks %}
-        <tr>
-            <td>{{ f.id }}</td>
-            <td>{{ f.message }}</td>
-            <td>{{ f.status }}</td>
-            <td>
-                <form method="POST" action="{{ url_for('update_feedback_status', feedback_id=f.id) }}">
-                    <select name="status">
-                        <option value="open" {% if f.status == 'open' %}selected{% endif %}>Open</option>
-                        <option value="reviewed" {% if f.status == 'reviewed' %}selected{% endif %}>Reviewed</option>
-                    </select>
-                    <button type="submit">Update</button>
-                </form>
-            </td>
-        </tr>
+<div class="assignments-container">
+    {% if feedbacks %}
+        {% for fb in feedbacks %}
+        <details class="assignment-card" id="feedback-{{ fb.id }}">
+            <summary>📝 Feedback ID #{{ fb.id }} - Status: <span class="status">{{ fb.status }}</span></summary>
+            <ul>
+                <li><strong>❤️ Like about teaching:</strong> {{ fb.like_teaching }}</li>
+                <li><strong>🛠️ Improve in teaching:</strong> {{ fb.improve_teaching }}</li>
+                <li><strong>🧪 Like about labs:</strong> {{ fb.like_labs }}</li>
+                <li><strong>🔧 Improve in labs:</strong> {{ fb.improve_labs }}</li>
+                {% if fb.additional %}
+                <li><strong>➕ Additional comments:</strong> {{ fb.additional }}</li>
+                {% endif %}
+            </ul>
+        
+            {% if fb.status == 'open' %}
+            <button onclick="markReviewed({{ fb.id }})">✅ Mark as Reviewed</button>
+            {% endif %}
+        </details>              
         {% endfor %}
-    </table>
+    {% else %}
+        <p>No feedback yet 😅</p>
+    {% endif %}
 </div>
 
-
+<!-- Footer -->
 <footer>
-    <p>© 2025 CSCB20 Course Website | <a href="https://www.utsc.utoronto.ca/cms/computer-science">Faculty of Computer Science at UofT</a></p>
+    <p>© 2025 CSCB20 Course Website | <a href="https://web.cs.toronto.edu/">Faculty of Computer Science at UofT</a></p>
     <p>Site design by Shuqing Tu and Yiqin Gao</p>
 </footer>
+<script>
+    function markReviewed(feedbackId) {
+        fetch('/instructor/update_feedback_status', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ feedback_id: feedbackId })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                const card = document.getElementById(`feedback-${feedbackId}`);
+                const statusSpan = card.querySelector('.status');
+                statusSpan.textContent = 'reviewed';
+    
+                // 移除按钮
+                const button = card.querySelector('button');
+                if (button) button.remove();
+    
+                // 延迟一点让用户看见“已更新”，然后移动
+                setTimeout(() => {
+                    card.parentNode.appendChild(card); // 下沉
+                }, 500);
+            } else {
+                alert("Failed to update status");
+            }
+        });
+    }
+    </script>
+    
 </body>
 </html>

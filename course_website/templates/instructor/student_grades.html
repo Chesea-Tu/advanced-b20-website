@@ -2,93 +2,122 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CSCB20 - View Your Grades</title>
+    <title>Instructor - Grade Management</title>
     <link href="{{ url_for('static', filename='css/assignments.css') }}" rel="stylesheet" type="text/css">
 </head>
-
 <body>
 
-    <div class="background"></div>
+<div class="background"></div>
 
-    <input type="checkbox" id="dark-mode-toggle">
-    <label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
+<input type="checkbox" id="dark-mode-toggle">
+<label for="dark-mode-toggle" class="dark-mode-label">Dark Mode</label>
 
-    <!-- Left Navigation Bar -->
-    <div class="leftnavigation">
-        <ul>
-            <li><a href="{{ url_for('dashboard') }}">Home 🏠</a></li>
-            <li><a href="{{ url_for('instructor_syllabus') }}">Syllabus🚀</a></li>
-            <li><a href="{{ url_for('instructor_calendar') }}">Calendar🗓️</a></li>
-            <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
-            <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
-            <li><a href="{{ url_for('instructor_lectures') }}">Lectures👩‍🏫</a></li>
-            <li><a href="{{ url_for('instructor_labs') }}">Labs👩‍💻</a></li>
-            <li><a href="{{ url_for('instructor_assignments') }}">Assignments✍️</a></li>
-            <li><a href="{{ url_for('instructor_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
-            <li><a href="{{ url_for('instructor_feedback') }}">Feedback😉</a></li>
-            <li><a href="{{ url_for('student_grades') }}"><span>Grades📊</span></a></li>
-            <li><a href="{{ url_for('view_regrade_requests') }}">Regrade📝</a></li>
-        </ul>
-    </div>
+<!-- Left Navigation Bar -->
+<div class="leftnavigation">
+    <ul>
+        <li><a href="{{ url_for('instructor_dashboard') }}">Home 🏠</a></li>
+        <li><a href="{{ url_for('instructor_syllabus') }}">Syllabus🚀</a></li>
+        <li><a href="{{ url_for('instructor_calendar') }}">Calendar🗓️</a></li>
+        <li><a href="https://piazza.com/class/m5fmz9kzjo83yk">Piazza💡</a></li>
+        <li><a href="https://markus2.utsc.utoronto.ca/courses/34/assignments">Markus🗂️</a></li>
+        <li><a href="{{ url_for('instructor_lectures') }}">Lectures👩‍🏫</a></li>
+        <li><a href="{{ url_for('instructor_labs') }}">Labs👩‍💻</a></li>
+        <li><a href="{{ url_for('instructor_assignments') }}">Assignments✍️</a></li>
+        <li><a href="{{ url_for('instructor_resources') }}">Course Team🙋‍♀️🙋‍♀️</a></li>
+        <li><a href="{{ url_for('instructor_feedback') }}">Feedback😉</a></li>
+        <li><a href="{{ url_for('student_grades') }}"><span>Grades📊</span></a></li>
+        <li><a href="{{ url_for('view_regrade_requests') }}">Regrade📝</a></li>
+    </ul>
+</div>
 
-    <!-- Header -->
-    <header class="assignment-header">
-        <h1>📋 Your students' Current Grades</h1>
-        <p>Welcome {{ username }}, here is your current progress:</p>
-    </header>
+<header class="assignment-header">
+    <h1>📋 Instructor Grade Management</h1>
+    <p>Welcome {{ session['username'] }}</p>
+</header>
 
-    {% if not grades['Assignment'] and not grades['Lab'] and not grades['Midterm'] and not grades['Final'] %}
-        <p style="text-align:center; font-size: 18px; margin-top: 30px;">
-            📭 No grades available yet. Please check back later!
-        </p>
-    {% endif %}
+<div class="assignments-container">
 
-    <!-- Grades Display Section -->
-    <div class="assignments-container">
+    {% set category_emojis = {'Assignment': '✍️', 'Lab': '👩‍💻', 'Midterm': '📖', 'Final': '📚'} %}
 
-        {% if grades['Assignment'] %}
-        <details class="assignment-card">
-            <summary>✍️ Assignments</summary>
-            {% for g in grades['Assignment'] %}
-                <p><strong>{{ g.name }}</strong>: {{ g.grade }}/100</p>
-            {% endfor %}
-        </details>
-        {% endif %}
+    {% for category in ['Assignment', 'Lab', 'Midterm', 'Final'] %}
+    <details class="assignment-card">
+        <summary>{{ category_emojis[category] }} {{ category }}</summary>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Current Grade</th>
+                    <th>New Grade</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in grades[category] %}
+                <tr>
+                    <td>{{ s.username }}</td>
+                    <td>{{ s.grade if s.grade != '' else '—' }}</td>
+                    <td>
+                        <input type="number" min="0" max="100" value="{{ s.grade }}" id="grade-{{ category }}-{{ s.username }}">
+                    </td>
+                    <td>
+                        <button onclick="updateGrade('{{ s.id if s.id else '' }}', '{{ s.username }}', '{{ s.assignment_name }}', 'grade-{{ category }}-{{ s.username }}')">
+                            {{ 'Update' if s.id else 'Create' }}
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </details>
+    {% endfor %}
 
-        {% if grades['Lab'] %}
-        <details class="assignment-card">
-            <summary>👩‍💻 Labs</summary>
-            {% for g in grades['Lab'] %}
-                <p><strong>{{ g.name }}</strong>: {{ g.grade }}/100</p>
-            {% endfor %}
-        </details>
-        {% endif %}
+</div>
 
-        {% if grades['Midterm'] %}
-        <details class="assignment-card">
-            <summary>📝 Midterm</summary>
-            {% for g in grades['Midterm'] %}
-                <p><strong>{{ g.name }}</strong>: {{ g.grade }}/100</p>
-            {% endfor %}
-        </details>
-        {% endif %}
+<script>
+function updateGrade(gradeId, username, assignmentName, inputId) {
+    const input = document.getElementById(inputId);
+    const newGrade = parseFloat(input.value);
 
-        {% if grades['Final'] %}
-        <details class="assignment-card">
-            <summary>📚 Final Exam</summary>
-            {% for g in grades['Final'] %}
-                <p><strong>{{ g.name }}</strong>: {{ g.grade }}/100</p>
-            {% endfor %}
-        </details>
-        {% endif %}
+    if (isNaN(newGrade) || newGrade < 0 || newGrade > 100) {
+        alert("❌ Please enter a valid grade between 0 and 100.");
+        return;
+    }
 
-    </div>
+    const payload = {
+        username: username,
+        assignment: assignmentName,
+        grade: newGrade
+    };
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 CSCB20 Course Website | <a href="https://web.cs.toronto.edu/">Faculty of Computer Science at UofT</a></p>
-        <p>Site design by Shuqing Tu and Yiqin Gao</p>
-    </footer>
+    if (gradeId) {
+        payload.id = gradeId;
+    }
+
+    fetch('/instructor/update_grade', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert("✅ Grade saved successfully!");
+            input.style.border = "2px solid green";
+        } else {
+            alert("❌ Failed to update: " + (data.error || 'unknown error'));
+            input.style.border = "2px solid red";
+        }
+    });
+}
+</script>
+
+<!-- Footer -->
+<footer>
+    <p>© 2025 CSCB20 Course Website | <a href="https://web.cs.toronto.edu/">Faculty of Computer Science at UofT</a></p>
+    <p>Site design by Shuqing Tu and Yiqin Gao</p>
+</footer>
 
 </body>
 </html>
